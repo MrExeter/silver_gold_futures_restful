@@ -1,7 +1,7 @@
-from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
-from dateutil import parser
-from datetime import date
+
+from bs4 import BeautifulSoup
+from dateutil.parser import parse
 
 
 class PageRipper:
@@ -45,8 +45,7 @@ class PageRipper:
         :return: Date object
         """
         try:
-            dt = parser.parse(str_value)
-            return date(dt.year, dt.month, dt.day)
+            return parse(str_value).date()
 
         except Exception as err:
             return -89, "Error encountered in date parser : {}".format(err)

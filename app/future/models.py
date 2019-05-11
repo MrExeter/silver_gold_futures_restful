@@ -1,4 +1,3 @@
-
 from app import db
 
 
@@ -49,6 +48,9 @@ class Price(db.Model):
         self.date = date
         self.price = price
         self.future_id = future_id
+
+    def __repr__(self):
+        return '<Date %r>' % self.date
 
     @classmethod
     def create_price(cls, price_data, future_id):

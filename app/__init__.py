@@ -9,21 +9,21 @@ db = SQLAlchemy()
 
 def create_app(config_type):
     app = Flask(__name__)
-    # app = Flask(__name__, static_url_path='/', static_folder='_build/html/')
+
     configuration = os.path.join(os.getcwd(), 'config', config_type + '.py')
 
     app.config.from_pyfile(configuration)
 
     db.init_app(app)  # bind database to flask app
 
-    # Init ma
-    ma = Marshmallow(app)
-
-    class FutureSchema(ma.Schema):
-        class Meta:
-            fields = ('id', 'name', 'url')
-
-    future_schema = FutureSchema(strict=True)
-    futures_schema = FutureSchema(many=True, strict=True)
+    # # Init ma
+    # ma = Marshmallow(app)
+    #
+    # class FutureSchema(ma.Schema):
+    #     class Meta:
+    #         fields = ('id', 'name', 'url')
+    #
+    # future_schema = FutureSchema(strict=True)
+    # futures_schema = FutureSchema(many=True, strict=True)
 
     return app
