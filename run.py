@@ -88,7 +88,7 @@ class Commodity(Resource):
 
 
 if __name__ == '__main__':
-    flask_app = create_app('dev')
+    flask_app = create_app('dev_mysql')
 
     api = Api(flask_app)
     api.add_resource(Commodity, "/commodity")
