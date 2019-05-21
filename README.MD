@@ -1,6 +1,8 @@
-# Test API for pulling commodities data from a website.
+# Test API for pulling commodities data.
 
-#### This test API pulls recent commodity data for Gold, Silver and other commodities, 
+#### This test API pulls recent commodity data for Gold, Silver and other commodities, It is a work in progress and will continue to evolve
+
+#### Data from www.investing.com
 
 Current list of commodities.
 
