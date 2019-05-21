@@ -1,5 +1,6 @@
 from app.future.models import *
 from app.future.souper_utils import PageRipper
+from app.links import futures
 
 
 def initialize_futures():
@@ -9,29 +10,16 @@ def initialize_futures():
     into the database.
     :return: Nothing
     """
-    gold = Future.query.filter_by(name='gold').first()
-    silver = Future.query.filter_by(name='silver').first()
 
-    gold_url = 'https://www.investing.com/commodities/gold-historical-data'
-    silver_url = 'https://www.investing.com/commodities/silver-historical-data'
+    for item in futures:
+        comm = Future.query.filter_by(name=item.get('name')).first()
+        if not comm:
+            Future.create_future(name=item.get('name'),
+                                 url=item.get('url'))
 
-    if not gold:
-        Future.create_future(name='gold',
-                             url=gold_url)
-
-    else:
-        prices = Price.query.filter_by(future_id=gold.id).all()
-        if not prices:
-            price_data = PageRipper.get_prices(url=gold_url)
-            Price.create_price_series(price_series=price_data,
-                                      future_id=gold.id)
-
-    if not silver:
-        Future.create_future(name='silver', url=silver_url)
-
-    else:
-        prices = Price.query.filter_by(future_id=silver.id).all()
-        if not prices:
-            price_data = PageRipper.get_prices(url=silver_url)
-            Price.create_price_series(price_series=price_data,
-                                      future_id=silver.id)
+        else:
+            prices = Price.query.filter_by(future_id=comm.id).all()
+            if not prices:
+                price_data = PageRipper.get_prices(url=item.get('url'))
+                Price.create_price_series(price_series=price_data,
+                                          future_id=comm.id)

@@ -42,11 +42,17 @@ class Price(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, index=True)
     price = db.Column(db.Float)
+    open = db.Column(db.Float)
+    high = db.Column(db.Float)
+    low = db.Column(db.Float)
     future_id = db.Column(db.Integer, db.ForeignKey('future.id'))
 
-    def __init__(self, date, price, future_id):
+    def __init__(self, date, price, open, high, low, future_id):
         self.date = date
         self.price = price
+        self.open = open
+        self.high = high
+        self.low = low
         self.future_id = future_id
 
     def __repr__(self):
@@ -56,6 +62,9 @@ class Price(db.Model):
     def create_price(cls, price_data, future_id):
         price = cls(date=price_data.get("Date"),
                     price=price_data.get("Price"),
+                    open=price_data.get("Open"),
+                    high=price_data.get("High"),
+                    low=price_data.get("Low"),
                     future_id=future_id)
 
         db.session.add(price)

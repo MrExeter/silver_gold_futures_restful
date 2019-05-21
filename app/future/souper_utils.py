@@ -68,6 +68,9 @@ class PageRipper:
                 daily_data = {
                     'Date': cls.parse_date(data[0].text),
                     'Price': cls.clean_convert(data[1], ','),
+                    'Open': cls.clean_convert(data[2], ','),
+                    'High': cls.clean_convert(data[3], ','),
+                    'Low': cls.clean_convert(data[4], ','),
                 }
 
                 ohlc_items.append(daily_data)

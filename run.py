@@ -23,7 +23,7 @@ class Commodity(Resource):
         else:
             data = request.args         # Retrieve args from get request if using curl
 
-        commodity_type = data.get("commodity_type")
+        commodity_type = data.get("commodity_type").lower()     # Make lowercase
         start_date = parse(data.get("start_date")).date()
         end_date = parse(data.get("end_date")).date()
 
